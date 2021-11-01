@@ -1,1 +1,12 @@
-<pre>{{ dummyData | json }}</pre>
+<input type="text" (keyup)="onKey($event)" />
+<button (click)="getWeatherData(location)">Get the weather</button>
+<br />
+<br />
+<div *ngIf="weatherDescription">It is {{ weatherDescription }} today</div>
+<div *ngIf="windSpeed">The wind speed is {{ windSpeed }}</div>
+<div *ngIf="temperature">The temperature today is {{ temperature }}</div>
+<div *ngIf="time">The time in {{ dataLocation }} is {{ time }}</div>
+<img [src]="imgSrc" />
+<br />
+<button (click)="toggleDataObject()">Toggle data object</button>
+<pre *ngIf="hideDataObject">{{ dummyData | json }}</pre>
