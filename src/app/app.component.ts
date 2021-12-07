@@ -13,43 +13,65 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient) {}
 
   private subs = new SubSink();
+
   dummyData = {};
-  location: string = '';
+  name = '';
+  country = '';
   weatherDescription: string = '';
   windSpeed = '';
   temperature = '';
-  hideDataObject = true;
+  feelsLike = '';
+
   imgSrc = '';
   time = '';
-  dataLocation = '';
+  locationName = '';
+
+  longitude = 0;
+  latitude = 0;
 
   ngOnInit() {
-    this.getWeatherData('horsham');
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.longitude = position.coords.longitude;
+        this.latitude = position.coords.latitude;
+      });
+    } else {
+      console.log('No support for geolocation');
+    }
   }
 
-  onKey(event: any) {
-    this.location = event.target.value;
-  }
+  getWeatherData() {
+    if (!this.latitude && this.longitude) {
+      alert('Please allow this app to access your location');
+    }
 
-  getWeatherData(location: string) {
-    this.subs.sink = this.http
+    this.http
       .get(
-        `http://api.weatherstack.com/current?access_key=0e50280b1799d67ffb967d013b015c5f&query=${location}`
+        `http://api.weatherapi.com/v1/current.json?key=da44e57457b841df961163400210612&q=${this.latitude},${this.longitude}`
       )
+      // use weather model
       .subscribe((weatherObject: any) => {
-        this.dummyData = weatherObject;
-        this.weatherDescription = weatherObject.current.weather_descriptions[0];
-        this.windSpeed = weatherObject.current.wind_speed;
-        this.temperature = weatherObject.current.temperature;
-        this.imgSrc = weatherObject.current.weather_icons[0];
-        this.time = weatherObject.current.observation_time;
-        this.dataLocation = weatherObject.location.name;
+        this.country = weatherObject.location.country;
+        this.name = weatherObject.location.name;
+        this.time = weatherObject.location.localtime;
+        this.temperature = weatherObject.current.temp_c;
+        this.feelsLike = weatherObject.current.feelslike_c;
+        this.imgSrc = weatherObject.current.condition.icon;
       });
   }
 
-  toggleDataObject() {
-    this.hideDataObject = !this.hideDataObject;
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.longitude = position.coords.longitude;
+        this.latitude = position.coords.latitude;
+        console.log(this.longitude, this.latitude);
+      });
+    } else {
+      console.log('No support for geolocation');
+    }
   }
+
   ngOnDestroy() {
     this.subs.unsubscribe();
   }

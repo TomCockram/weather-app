@@ -1,12 +1,33 @@
-<input type="text" (keyup)="onKey($event)" />
-<button (click)="getWeatherData(location)">Get the weather</button>
-<br />
-<br />
-<div *ngIf="weatherDescription">It is {{ weatherDescription }} today</div>
-<div *ngIf="windSpeed">The wind speed is {{ windSpeed }}</div>
-<div *ngIf="temperature">The temperature today is {{ temperature }}</div>
-<div *ngIf="time">The time in {{ dataLocation }} is {{ time }}</div>
-<img [src]="imgSrc" />
-<br />
-<button (click)="toggleDataObject()">Toggle data object</button>
-<pre *ngIf="hideDataObject">{{ dummyData | json }}</pre>
+<button (click)="getWeatherData()">Get the weather</button>
+<div class="container py-5 h-100">
+  <div
+    class="row d-flex justify-content-center align-items-center h-100"
+    style="color: #282828"
+  >
+    <div class="col-md-9 col-lg-7 col-xl-5">
+      <div class="card mb-4 gradient-custom" style="border-radius: 25px">
+        <div class="card-body p-4">
+          <div id="demo1" class="carousel slide" data-ride="carousel">
+            <!-- Carousel inner -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex justify-content-between mb-4 pb-2">
+                  <div>
+                    <h2 class="display-2">
+                      <strong>{{ temperature }}</strong>
+                      <strong>{{ feelsLike }}</strong>
+                    </h2>
+                    <p class="text-muted mb-0" *ngIf="name || country">
+                      {{ name }}, {{ country }}
+                    </p>
+                  </div>
+                  <div><img [src]="imgSrc" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

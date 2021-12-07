@@ -1,0 +1,10 @@
+.gradient-custom {
+  background: #ffedd5;
+}
+
+.carousel-indicators li {
+  background-color: #282828;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
