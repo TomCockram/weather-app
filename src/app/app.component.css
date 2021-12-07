@@ -1,26 +1,31 @@
+.body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .container {
-  width: 25%;
+  width: 10%;
   background: #ffedd5;
   border-radius: 25px;
   padding: 10px;
+  align-self: center;
 }
 
-/*  grid **/
+/* grid **/
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  justify-items: center;
+  place-items: center;
 }
 
-.div1 {
+.temperature {
   grid-area: 1 / 1 / 2 / 2;
 }
-.div2 {
+.image {
   grid-area: 2 / 1 / 3 / 2;
 }
-.div3 {
+.location {
   grid-area: 3 / 1 / 4 / 2;
 }
