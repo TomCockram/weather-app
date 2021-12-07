@@ -38,9 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     } else {
       console.log('No support for geolocation');
     }
-  }
 
-  getWeatherData() {
     if (!this.latitude && this.longitude) {
       alert('Please allow this app to access your location');
     }
