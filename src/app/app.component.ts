@@ -37,7 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
       navigator.geolocation.getCurrentPosition((position) => {
         this.longitude = position.coords.longitude;
         this.latitude = position.coords.latitude;
-        console.log(this.latitude, this.longitude);
         this.getWeatherData();
       });
     } else {

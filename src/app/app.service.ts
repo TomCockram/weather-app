@@ -9,7 +9,7 @@ export class AppService {
 
   getWeather(latitude: number, longitude: number) {
     return this.http.get(
-      `http://api.weatherapi.com/v1/current.json?key=da44e57457b841df961163400210612&q=${latitude},${longitude}`
+      `https://api.weatherapi.com/v1/current.json?key=da44e57457b841df961163400210612&q=${latitude},${longitude}`
     );
   }
 }
