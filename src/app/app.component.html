@@ -1,10 +1,8 @@
 <div class="body">
-  <div class="container">
-    <div class="grid" *ngIf="showWeather; else noWeather">
-      <strong class="temperature">{{ temperature }} °C </strong>
-      <div class="image"><img [src]="imgSrc" /></div>
-      <div class="location">{{ name }}, {{ country }}</div>
-    </div>
+  <div class="grid" *ngIf="showWeather; else noWeather">
+    <strong class="temperature">{{ temperature }} °C </strong>
+    <div class="image"><img [src]="imgSrc" /></div>
+    <div class="location">{{ name }}, {{ country }}</div>
   </div>
 
   <ng-template class="container" #noWeather>
