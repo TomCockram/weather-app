@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SubSink } from 'subsink';
 import { AppService } from './app.service';
-
+import { WeatherModel } from './model/weather-model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,22 +11,9 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private appService: AppService) {}
 
   private subs = new SubSink();
-
-  dummyData = {};
-  name = '';
-  country = '';
-  weatherDescription: string = '';
-  windSpeed = '';
-  temperature = '';
-  feelsLike = '';
-
-  imgSrc = '';
-  time = '';
-  locationName = '';
-
+  weatherObject: WeatherModel | undefined;
   longitude = 0;
   latitude = 0;
-  showWeather = false;
 
   ngOnInit() {
     this.getLocation();
@@ -47,15 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
   getWeatherData() {
     this.appService
       .getWeather(this.latitude, this.longitude)
-      .subscribe((weatherObject: any) => {
+      .subscribe((weatherObject: WeatherModel) => {
         console.log(weatherObject);
-        this.showWeather = true;
-        this.country = weatherObject.location.country;
-        this.name = weatherObject.location.name;
-        this.time = weatherObject.location.localtime;
-        this.temperature = weatherObject.current.temp_c;
-        this.feelsLike = weatherObject.current.feelslike_c;
-        this.imgSrc = weatherObject.current.condition.icon;
+
+        this.weatherObject = weatherObject;
       });
   }
 

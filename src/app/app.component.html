@@ -1,8 +1,12 @@
-<div class="body">
-  <div class="grid" *ngIf="showWeather; else noWeather">
-    <strong class="temperature">{{ temperature }} °C </strong>
-    <div class="image"><img [src]="imgSrc" /></div>
-    <div class="location">{{ name }}, {{ country }}</div>
+<div class="container">
+  <div class="grid" *ngIf="weatherObject; else noWeather">
+    <p>Temperature: {{ weatherObject.current.temp_c }} °C</p>
+    <p>Feels like: {{ weatherObject.current.feelslike_c }} °C</p>
+    <img [src]="weatherObject.current.condition.icon" />
+    <p>{{ weatherObject.location.localtime | date: "shortTime" }}</p>
+    <p>
+      {{ weatherObject.location.name }}, {{ weatherObject.location.country }}
+    </p>
   </div>
 
   <ng-template class="container" #noWeather>
