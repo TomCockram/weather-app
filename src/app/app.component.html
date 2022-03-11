@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="grid" *ngIf="weatherObject; else noWeather">
+  <div class="flex background" *ngIf="weatherObject; else noWeather">
     <p>Temperature: {{ weatherObject.current.temp_c }} °C</p>
     <p>Feels like: {{ weatherObject.current.feelslike_c }} °C</p>
     <img [src]="weatherObject.current.condition.icon" />
@@ -7,6 +7,21 @@
     <p>
       {{ weatherObject.location.name }}, {{ weatherObject.location.country }}
     </p>
+    <button mat-button color="primary" (click)="wrongLocation()">
+      Wrong Location?
+    </button>
+    <div *ngIf="locationWrong" class="flex">
+      <input
+        type="text"
+        placeholder="Enter correct location"
+        [(ngModel)]="userLocation"
+        (keyup.enter)="wrongLocation()"
+      />
+      <button mat-raised-button color="primary" (click)="getCorrectLocation()">
+        get new location
+      </button>
+    </div>
+    <br />
   </div>
 
   <ng-template class="container" #noWeather>
