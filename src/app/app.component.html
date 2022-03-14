@@ -15,13 +15,12 @@
         type="text"
         placeholder="Enter correct location"
         [(ngModel)]="userLocation"
-        (keyup.enter)="wrongLocation()"
+        (keyup.enter)="getCorrectLocation()"
       />
       <button mat-raised-button color="primary" (click)="getCorrectLocation()">
-        get new location
+        Get new location
       </button>
     </div>
-    <br />
   </div>
 
   <ng-template class="container" #noWeather>

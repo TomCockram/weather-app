@@ -7,7 +7,7 @@ import { WeatherModel } from './model/weather-model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(private appService: AppService) {}
@@ -59,8 +59,8 @@ export class AppComponent implements OnInit, OnDestroy {
             this.geocodingObject = data;
             this.subs.sink = this.appService
               .getWeather(
-                this.geocodingObject?.features[0].center[1],
-                this.geocodingObject?.features[0].center[0]
+                this.geocodingObject.features[0].center[1],
+                this.geocodingObject.features[0].center[0]
               )
               .subscribe((weatherObject: WeatherModel) => {
                 this.weatherObject = weatherObject;
