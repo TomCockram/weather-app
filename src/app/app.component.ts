@@ -1,32 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SubSink } from 'subsink';
 import { AppService } from './app.service';
+import { GeocodingModel } from './model/geocoding-model';
+import { WeatherModel } from './model/weather-model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(private appService: AppService) {}
 
   private subs = new SubSink();
-
-  dummyData = {};
-  name = '';
-  country = '';
-  weatherDescription: string = '';
-  windSpeed = '';
-  temperature = '';
-  feelsLike = '';
-
-  imgSrc = '';
-  time = '';
-  locationName = '';
-
+  weatherObject: WeatherModel | undefined;
+  geocodingObject: GeocodingModel | undefined;
   longitude = 0;
   latitude = 0;
-  showWeather = false;
+  locationWrong = false;
+  userLocation = '';
 
   ngOnInit() {
     this.getLocation();
@@ -45,18 +37,37 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   getWeatherData() {
-    this.appService
-      .getWeather(this.latitude, this.longitude)
-      .subscribe((weatherObject: any) => {
-        console.log(weatherObject);
-        this.showWeather = true;
-        this.country = weatherObject.location.country;
-        this.name = weatherObject.location.name;
-        this.time = weatherObject.location.localtime;
-        this.temperature = weatherObject.current.temp_c;
-        this.feelsLike = weatherObject.current.feelslike_c;
-        this.imgSrc = weatherObject.current.condition.icon;
-      });
+    this.subs.add(
+      this.appService
+        .getWeather(this.latitude, this.longitude)
+        .subscribe((weatherObject: WeatherModel) => {
+          this.weatherObject = weatherObject;
+        })
+    );
+  }
+
+  wrongLocation() {
+    this.locationWrong = !this.locationWrong;
+  }
+
+  getCorrectLocation() {
+    if (this.userLocation) {
+      this.subs.add(
+        this.appService
+          .getLocation(this.userLocation)
+          .subscribe((data: GeocodingModel) => {
+            this.geocodingObject = data;
+            this.subs.sink = this.appService
+              .getWeather(
+                this.geocodingObject.features[0].center[1],
+                this.geocodingObject.features[0].center[0]
+              )
+              .subscribe((weatherObject: WeatherModel) => {
+                this.weatherObject = weatherObject;
+              });
+          })
+      );
+    }
   }
 
   ngOnDestroy() {

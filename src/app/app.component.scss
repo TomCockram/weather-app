@@ -1,0 +1,62 @@
+$background: #ffedd5;
+$button: black;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  background: $background;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+p {
+  margin: 5px;
+}
+
+input {
+  background: none;
+  outline: none;
+  border-width: 0px 0px 2px 0px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  border-color: black;
+  text-align: center;
+  font-size: 16px;
+}
+
+::placeholder {
+  color: black;
+  text-align: center;
+}
+input:focus::placeholder {
+  color: transparent;
+}
+
+button {
+  background: transparent;
+  color: $button;
+  padding: 4px 30px 5px;
+  border-radius: 1000px;
+  border: 1px solid $button;
+  font-size: 16px;
+  margin: 20px;
+  cursor: pointer;
+  transition: 0.35s all;
+
+  &:hover {
+    background: $button;
+    color: white;
+  }
+}
