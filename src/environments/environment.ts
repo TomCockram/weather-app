@@ -4,6 +4,14 @@
 
 export const environment = {
   production: false,
+
+  keys: {
+    unsplash_access_key: 'GyxEcmarQuvcaxcB8veDGp65yLKG_5AHArqMt-W9-1I',
+    unsplash_secret_key: 'X9Z2o2X0PJ95pPoU_SkMoxua1b86vff7ZQ0JoN5LejM',
+    weather_api_key: 'da44e57457b841df961163400210612&',
+    mapBox__access_token:
+      'pk.eyJ1IjoidG9tY29ja3JhbSIsImEiOiJja3ZpYWo4dWsxcmJ0MzBuM2x4dzJ1b3J2In0.50tAlCeWmoDAxzxOIcdXiQ',
+  },
 };
 
 /*
