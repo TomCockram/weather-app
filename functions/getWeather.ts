@@ -4,7 +4,6 @@ import fetch from 'node-fetch';
 exports.handler = async (location: any) => {
   let latitude = location.queryStringParameters.latitude;
   let longitude = location.queryStringParameters.longitude;
-  console.log(latitude, longitude);
   try {
     const response = await fetch(
       `https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}q=${latitude},${longitude}`

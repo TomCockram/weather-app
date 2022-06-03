@@ -6498,7 +6498,6 @@ var import_node_fetch = __toModule(require_lib3());
 exports.handler = async (location) => {
   let latitude = location.queryStringParameters.latitude;
   let longitude = location.queryStringParameters.longitude;
-  console.log(latitude, longitude);
   try {
     const response = await (0, import_node_fetch.default)(`https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}q=${latitude},${longitude}`);
     const data = await response.json();
