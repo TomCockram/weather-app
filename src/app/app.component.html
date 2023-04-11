@@ -1,4 +1,13 @@
-<div class="container">
+<div
+  class="container"
+  [ngStyle]="{
+    'background-image': '{{backgroundImageURL}}',
+    height: '100%',
+    'background-position': 'center',
+    'background-repeat': 'no-repeat',
+    'background-size': 'cover'
+  }"
+>
   <div class="flex background" *ngIf="weatherObject; else noWeather">
     <p>Temperature: {{ weatherObject.current.temp_c }} °C</p>
     <p>Feels like: {{ weatherObject.current.feelslike_c }} °C</p>
@@ -21,6 +30,10 @@
         Get new location
       </button>
     </div>
+  </div>
+
+  <div>
+    <button (click)="logAPIKey()">test me</button>
   </div>
 
   <ng-template class="container" #noWeather>

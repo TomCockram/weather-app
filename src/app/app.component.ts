@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SubSink } from 'subsink';
 import { AppService } from './app.service';
 import { GeocodingModel } from './model/geocoding-model';
+import { UnsplashModel } from './model/unsplash.model';
 import { WeatherModel } from './model/weather-model';
 
 @Component({
@@ -19,9 +20,15 @@ export class AppComponent implements OnInit, OnDestroy {
   latitude = 0;
   locationWrong = false;
   userLocation = '';
+  userCity = '';
+  backgroundImageURL = '';
 
   ngOnInit() {
     this.getLocation();
+  }
+
+  logAPIKey() {
+    console.log(`${process.env.UNSPLASH_ACCESS_KEY}`);
   }
 
   getLocation() {
@@ -44,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.weatherObject = weatherObject;
         })
     );
+    this.getRandomImage();
   }
 
   wrongLocation() {
@@ -67,7 +75,26 @@ export class AppComponent implements OnInit, OnDestroy {
               });
           })
       );
+      this.getRandomImage();
     }
+  }
+
+  getCityName() {
+    this.appService
+      .getLocation(this.userLocation)
+      .subscribe((result: GeocodingModel) => {
+        this.userCity = result.features[0]?.text;
+      });
+  }
+
+  getRandomImage() {
+    this.getCityName();
+    this.appService
+      .getRandomLocation(this.userCity)
+      .subscribe((result: UnsplashModel) => {
+        console.log(result);
+        this.backgroundImageURL = result.urls.raw;
+      });
   }
 
   ngOnDestroy() {
